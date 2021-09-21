@@ -15,9 +15,26 @@ public class Commune {
         this.lesSecteurs.add(secteur);
     }
 
+    public int perte() {
+        int consoUsager = 0;
+        int consoVanne = 0;
+
+        for (Secteur secteur : this.lesSecteurs) {
+            for (Branchement branchement : secteur.getLesBranchements()) {
+                if (branchement instanceof Usager) {
+                    consoUsager += branchement.getLeCompteur().getConsommation();
+                } else if (branchement instanceof Vanne) {
+                    consoVanne += branchement.getLeCompteur().getConsommation();
+                }
+            }
+        }
+
+        return consoVanne - consoUsager;
+    }
+
     public List<Secteur> secteurEV() {
         List<Secteur> secteursEV = new ArrayList<Secteur>();
-        for (Secteur secteur: this.lesSecteurs) {
+        for (Secteur secteur : this.lesSecteurs) {
             if (secteur.getEspaceVert()) {
                 secteursEV.add(secteur);
             }

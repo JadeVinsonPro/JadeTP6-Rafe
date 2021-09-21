@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class Main {
     public static void main(String[] args) {
         Commune commune1 = new Commune("1", "Paris");
@@ -29,5 +32,27 @@ public class Main {
         commune1.ajouterUnSecteur(secteur2);
 
         System.out.println(commune1);
+
+        // ----------------- Facultatif -----------------------
+        // Parcours de collections et tri des objets hérité de Branchement dans deux collections différentes
+
+        List<Usager> lesUsagers = new ArrayList<Usager>();
+        List<Vanne> lesVannes = new ArrayList<Vanne>();
+
+        List<Commune> lesCommunes = new ArrayList<Commune>();
+
+        lesCommunes.add(commune1);
+
+        for (Commune commune : lesCommunes) {
+            for (Secteur secteur : commune.getLesSecteurs()) {
+                for (Branchement branchement : secteur.getLesBranchements()) {
+                    if (branchement instanceof Usager) {
+                        lesUsagers.add((Usager) branchement);
+                    } else if (branchement instanceof Vanne) {
+                        lesVannes.add((Vanne) branchement);
+                    }
+                }
+            }
+        }
     }
 }
