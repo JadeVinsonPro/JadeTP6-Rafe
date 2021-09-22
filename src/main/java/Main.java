@@ -1,6 +1,3 @@
-import java.util.ArrayList;
-import java.util.List;
-
 public class Main {
     public static void main(String[] args) {
         Commune commune1 = new Commune("1", "Paris");
@@ -11,7 +8,7 @@ public class Main {
         Compteur compteur1 = new Compteur(10, 30);
         Compteur compteur2 = new Compteur(23, 50);
         Compteur compteur3 = new Compteur(22, 49);
-        Compteur compteur4 = new Compteur(100, 200);
+        Compteur compteur4 = new Compteur(100, 150);
         Compteur compteur5 = new Compteur(30, 61);
 
         Usager usager1 = new Usager(compteur1);
@@ -31,28 +28,10 @@ public class Main {
         commune1.ajouterUnSecteur(secteur1);
         commune1.ajouterUnSecteur(secteur2);
 
-        System.out.println(commune1);
+        System.out.println(commune1.anomalie());
+        System.out.println(commune1.perte());
+        System.out.println(commune1.volumeUsagers());
+        System.out.println(commune1.volumeVannes());
 
-        // ----------------- Facultatif -----------------------
-        // Parcours de collections et tri des objets hérité de Branchement dans deux collections différentes
-
-        List<Usager> lesUsagers = new ArrayList<Usager>();
-        List<Vanne> lesVannes = new ArrayList<Vanne>();
-
-        List<Commune> lesCommunes = new ArrayList<Commune>();
-
-        lesCommunes.add(commune1);
-
-        for (Commune commune : lesCommunes) {
-            for (Secteur secteur : commune.getLesSecteurs()) {
-                for (Branchement branchement : secteur.getLesBranchements()) {
-                    if (branchement instanceof Usager) {
-                        lesUsagers.add((Usager) branchement);
-                    } else if (branchement instanceof Vanne) {
-                        lesVannes.add((Vanne) branchement);
-                    }
-                }
-            }
-        }
     }
 }

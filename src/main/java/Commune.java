@@ -16,20 +16,46 @@ public class Commune {
     }
 
     public int perte() {
-        int consoUsager = 0;
-        int consoVanne = 0;
+        return this.volumeVannes() - this.volumeUsagers();
+    }
+
+    public int volumeVannes() {
+        int totalVanne = 0;
 
         for (Secteur secteur : this.lesSecteurs) {
             for (Branchement branchement : secteur.getLesBranchements()) {
-                if (branchement instanceof Usager) {
-                    consoUsager += branchement.getLeCompteur().getConsommation();
-                } else if (branchement instanceof Vanne) {
-                    consoVanne += branchement.getLeCompteur().getConsommation();
+                if (branchement instanceof Vanne) {
+                    totalVanne += branchement.conso();
                 }
             }
         }
 
-        return consoVanne - consoUsager;
+        return totalVanne;
+    }
+
+    public int volumeUsagers() {
+        int totalUsager = 0;
+
+        for (Secteur secteur : this.lesSecteurs) {
+            for (Branchement branchement : secteur.getLesBranchements()) {
+                if (branchement instanceof Usager) {
+                    totalUsager += branchement.conso();
+                }
+            }
+        }
+
+        return totalUsager;
+    }
+
+    public int anomalie() {
+        int pourcentage = (perte() * 100) / volumeVannes();
+        if (pourcentage < 10) {
+            return 1;
+        } else if (pourcentage < 15) {
+            return 2;
+        } else {
+            return 3;
+        }
     }
 
     public List<Secteur> secteurEV() {

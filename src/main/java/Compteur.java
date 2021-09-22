@@ -7,7 +7,7 @@ public class Compteur {
         this.indexNouveau = indexNouveau;
     }
 
-    public int getConsommation() {
+    public int releve() {
         return this.indexNouveau - this.indexAncien;
     }
 

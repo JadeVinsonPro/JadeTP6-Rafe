@@ -1,8 +1,12 @@
-public class Branchement {
+public abstract class Branchement {
     private Compteur leCompteur;
 
     public Branchement(Compteur leCompteur) {
         this.leCompteur = leCompteur;
+    }
+
+    public int conso() {
+        return this.leCompteur.releve();
     }
 
     public Compteur getLeCompteur() {
