@@ -25,7 +25,7 @@ public class Commune {
         }
         return secteursEV;
     }
-
+//peut etre mis en private
     public int volumeVannes() { // on va chercher la valeur en parcourant les tableaux de Secteur, Branchement, Vanne
         int totalVanne = 0;
 
@@ -40,22 +40,6 @@ public class Commune {
         return totalVanne;
     }
 
-    public int perte() {
-        return this.volumeVannes() - this.volumeUsagers();
-    }
-
-    public int anomalie() { //le pourcentage des pertes par rapport au volume distribué
-                            // par les vannes
-
-        int pourcentage = (perte() * 100) / volumeVannes();
-        if (pourcentage < 10) {
-            return 1;
-        } else if (pourcentage < 15) {
-            return 2;
-        } else {
-            return 3;
-        }
-    }
     public int volumeUsagers() {
         int totalUsager = 0;
 
@@ -69,6 +53,24 @@ public class Commune {
 
         return totalUsager;
     }
+
+    public int perte() {//possible de mettre en private -> uniquement en interne
+        return this.volumeVannes() - this.volumeUsagers();
+    }
+
+    public int anomalie() { //le pourcentage des pertes par rapport au volume distribué
+                            // par les vannes
+
+        int pourcentage = (this.perte() * 100) / this.volumeVannes();// possible d'optimiser en mettant directement perte() sans faire la fonction
+        if (pourcentage < 10) {
+            return 1;
+        } else if (pourcentage < 15) {
+            return 2;
+        } else {
+            return 3;
+        }
+    }
+
 
 
     public String getNumCom() {
