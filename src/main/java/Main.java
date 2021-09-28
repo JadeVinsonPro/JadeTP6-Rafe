@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class Main {
     public static void main(String[] args) {
         Commune commune1 = new Commune("1", "Paris");
@@ -28,10 +31,37 @@ public class Main {
         commune1.ajouterUnSecteur(secteur1);
         commune1.ajouterUnSecteur(secteur2);
 
-        System.out.println(commune1.anomalie());
-        System.out.println(commune1.perte());
-        System.out.println(commune1.volumeUsagers());
-        System.out.println(commune1.volumeVannes());
+        System.out.println(secteur1);
+        System.out.println("La commune connait une anomalie de catégorie : " + commune1.anomalie());
+        System.out.println("La commune a une perte de : " + commune1.perte());
+        System.out.println("Le volume d'Usagers pour la commune : " + commune1.volumeUsagers());
+        System.out.println("Le volume de Vannes pour la commune : " + commune1.volumeVannes());
+
+        //BONUS : on cherche à connaitre le nombre de toutes les Vannes
+        // et de tous les Usagers Toutes communes confondues
+
+        //On crée une liste pour séparer les diffèrents branchements
+        List<Usager> lesUsagers = new ArrayList<Usager>();
+        List<Vanne> lesVannes = new ArrayList<Vanne>();
+
+        List<Commune> lesCommunes = new ArrayList<Commune>();
+
+        lesCommunes.add(commune1);
+
+        for (Commune commune: lesCommunes) {
+            for (Secteur secteur: commune.getLesSecteurs()) {
+                for (Branchement branchement: secteur.getLesBranchements()) {
+                    if (branchement instanceof Usager) {
+                        lesUsagers.add((Usager) branchement);
+                    }else if (branchement instanceof Vanne)
+                        lesVannes.add((Vanne) branchement);
+                }
+            }
+        }
+
+        System.out.println("Toutes les informations de toutes les communes : " + lesCommunes);
+        System.out.println("L'ensemble des usagers, toutes communes confondues est de " + lesUsagers);
+        System.out.println("L'ensemble des vannes, toutes communes confondues est de " + lesVannes);
 
     }
 }

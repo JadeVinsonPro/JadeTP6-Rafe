@@ -61,11 +61,11 @@ public class Secteur {
 
     @Override
     public String toString() {
-        return "Secteur{" +
+        return "\u001b[34mSecteur {" +
                 "numSecteur=" + numSecteur +
-                ", nomSecteur='" + nomSecteur + '\'' +
-                ", espaceVert=" + espaceVert +
-                ", lesBranchements=" + lesBranchements +
-                '}';
+                ", \nnomSecteur='" + nomSecteur + '\'' +
+                ", \nespaceVert=" + espaceVert +
+                ", \nlesBranchements="  + lesBranchements +
+                "}";
     }
 }

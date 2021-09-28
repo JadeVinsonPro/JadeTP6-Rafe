@@ -19,7 +19,7 @@ public abstract class Branchement {
 
     @Override
     public String toString() {
-        return "Branchement{" +
+        return "\u001b[35mBranchement{" +
                 "leCompteur=" + leCompteur +
                 '}';
     }

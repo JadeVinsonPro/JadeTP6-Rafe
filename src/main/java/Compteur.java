@@ -29,9 +29,9 @@ public class Compteur {
 
     @Override
     public String toString() {
-        return "Compteur{" +
-                "indexAncien=" + indexAncien +
-                ", indexNouveau=" + indexNouveau +
+        return "\u001b[33mCompteur{" +
+                "\nindexAncien=" + indexAncien +
+                ", \nindexNouveau=" + indexNouveau +
                 '}';
     }
 }

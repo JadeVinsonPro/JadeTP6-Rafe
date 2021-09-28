@@ -4,7 +4,7 @@ import java.util.List;
 public class Commune {
     private String numCom;
     private String nomCom;
-    private List<Secteur> lesSecteurs = new ArrayList<Secteur>();
+    private List<Secteur> lesSecteurs = new ArrayList<Secteur>(); //une commune comprend des secteurs
 
     public Commune(String numCom, String nomCom) {
         this.numCom = numCom;
@@ -15,17 +15,24 @@ public class Commune {
         this.lesSecteurs.add(secteur);
     }
 
-    public int perte() {
-        return this.volumeVannes() - this.volumeUsagers();
+
+    public List<Secteur> secteurEV() {
+        List<Secteur> secteursEV = new ArrayList<Secteur>();
+        for (Secteur secteur : this.lesSecteurs) {
+            if (secteur.getEspaceVert()) {
+                secteursEV.add(secteur);
+            }
+        }
+        return secteursEV;
     }
 
-    public int volumeVannes() {
+    public int volumeVannes() { // on va chercher la valeur en parcourant les tableaux de Secteur, Branchement, Vanne
         int totalVanne = 0;
 
         for (Secteur secteur : this.lesSecteurs) {
             for (Branchement branchement : secteur.getLesBranchements()) {
-                if (branchement instanceof Vanne) {
-                    totalVanne += branchement.conso();
+                if (branchement instanceof Vanne) { // on prend le fils Vanne
+                    totalVanne += branchement.conso();//on ajoute le volume actuel
                 }
             }
         }
@@ -33,6 +40,22 @@ public class Commune {
         return totalVanne;
     }
 
+    public int perte() {
+        return this.volumeVannes() - this.volumeUsagers();
+    }
+
+    public int anomalie() { //le pourcentage des pertes par rapport au volume distribué
+                            // par les vannes
+
+        int pourcentage = (perte() * 100) / volumeVannes();
+        if (pourcentage < 10) {
+            return 1;
+        } else if (pourcentage < 15) {
+            return 2;
+        } else {
+            return 3;
+        }
+    }
     public int volumeUsagers() {
         int totalUsager = 0;
 
@@ -47,26 +70,6 @@ public class Commune {
         return totalUsager;
     }
 
-    public int anomalie() {
-        int pourcentage = (perte() * 100) / volumeVannes();
-        if (pourcentage < 10) {
-            return 1;
-        } else if (pourcentage < 15) {
-            return 2;
-        } else {
-            return 3;
-        }
-    }
-
-    public List<Secteur> secteurEV() {
-        List<Secteur> secteursEV = new ArrayList<Secteur>();
-        for (Secteur secteur : this.lesSecteurs) {
-            if (secteur.getEspaceVert()) {
-                secteursEV.add(secteur);
-            }
-        }
-        return secteursEV;
-    }
 
     public String getNumCom() {
         return numCom;
@@ -94,10 +97,10 @@ public class Commune {
 
     @Override
     public String toString() {
-        return "Commune{" +
-                "numCom='" + numCom + '\'' +
-                ", nomCom='" + nomCom + '\'' +
-                ", lesSecteurs=" + lesSecteurs +
+        return "\u001b[34mCommune{" +
+                "\n numCom='" + numCom + '\'' +
+                ", \nnomCom='" + nomCom + '\'' +
+                ", \nlesSecteurs=" + lesSecteurs +
                 '}';
     }
 }
